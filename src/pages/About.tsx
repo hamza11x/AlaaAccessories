@@ -3,45 +3,56 @@ import { Link } from 'react-router-dom';
 import './about.css';
 
 const stats = [
-  { value: '500+', label: 'Products Available' },
-  { value: '10K+', label: 'Happy Customers' },
-  { value: '5★', label: 'Average Rating' },
-  { value: '2+', label: 'Years of Excellence' },
+  { value: 500, suffix: '+', label: 'Products' },
+  { value: 10000, suffix: '+', label: 'Customers' },
+  { value: 100, suffix: '%', label: 'Quality Checked' },
+  { value: 2, suffix: '+', label: 'Years Active' },
 ];
 
 const values = [
   {
-    icon: '✦',
-    title: 'Premium Quality',
+    num: '01',
+    title: 'Built for Tech',
     description:
-      'Every accessory is carefully selected and quality-checked to ensure you receive nothing but the best.',
+      'Every product is engineered for compatibility with modern devices — cables, cases, stands, and beyond.',
   },
   {
-    icon: '◈',
-    title: 'Curated Selection',
+    num: '02',
+    title: 'Precision Sourced',
     description:
-      'We handpick only the most stylish and functional pieces — no clutter, only essentials that matter.',
+      'We test every accessory before it reaches you. No cheap knockoffs — only gear that performs.',
   },
   {
-    icon: '⟡',
-    title: 'Fast Delivery',
+    num: '03',
+    title: 'Fast & Reliable',
     description:
-      'We ship quickly and securely so your order arrives on time, every time, right to your doorstep.',
+      'Quick dispatch, tracked shipping, and hassle-free returns. Your order, on time.',
   },
   {
-    icon: '◇',
+    num: '04',
     title: 'Customer First',
     description:
-      'Your satisfaction is our mission. We stand behind every product with dedicated support.',
+      'Real support from real people. We're here before, during, and after your purchase.',
   },
+];
+
+const categories = [
+  { icon: '⌨', label: 'Keyboards & Mice' },
+  { icon: '🎧', label: 'Audio & Headsets' },
+  { icon: '📱', label: 'Phone Accessories' },
+  { icon: '💡', label: 'Desk & Lighting' },
+  { icon: '🔌', label: 'Cables & Hubs' },
+  { icon: '🖥', label: 'Monitors & Stands' },
 ];
 
 function useInView(ref: React.RefObject<Element | null>) {
   const [inView, setInView] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setInView(true); },
-      { threshold: 0.15 }
+      ([entry]) => {
+        if (entry.isIntersecting) setInView(true);
+      },
+      { threshold: 0.12 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -49,112 +60,92 @@ function useInView(ref: React.RefObject<Element | null>) {
   return inView;
 }
 
-function AnimatedCounter({ target }: { target: string }) {
-  const [display, setDisplay] = useState('0');
+function Counter({ target, suffix }: { target: number; suffix: string }) {
+  const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref);
 
   useEffect(() => {
     if (!inView) return;
-    const num = parseInt(target.replace(/\D/g, ''));
-    const suffix = target.replace(/[\d]/g, '');
-    if (isNaN(num)) { setDisplay(target); return; }
     let start = 0;
-    const duration = 1600;
-    const step = Math.ceil(num / (duration / 16));
-    const timer = setInterval(() => {
-      start = Math.min(start + step, num);
-      setDisplay(start + suffix);
-      if (start >= num) clearInterval(timer);
-    }, 16);
-    return () => clearInterval(timer);
+    const step = Math.ceil(target / 60);
+    const id = setInterval(() => {
+      start = Math.min(start + step, target);
+      setVal(start);
+      if (start >= target) clearInterval(id);
+    }, 18);
+    return () => clearInterval(id);
   }, [inView, target]);
 
-  return <span ref={ref}>{display}</span>;
+  return (
+    <span ref={ref}>
+      {val.toLocaleString()}{suffix}
+    </span>
+  );
 }
 
 export default function About() {
-  const heroRef = useRef<HTMLDivElement>(null);
   const storyRef = useRef<HTMLDivElement>(null);
-  const valuesRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const valuesRef = useRef<HTMLDivElement>(null);
+  const catsRef = useRef<HTMLDivElement>(null);
 
   const storyInView = useInView(storyRef);
-  const valuesInView = useInView(valuesRef);
   const statsInView = useInView(statsRef);
+  const valuesInView = useInView(valuesRef);
+  const catsInView = useInView(catsRef);
 
   return (
     <div className="about-page">
-      {/* HERO */}
-      <section className="about-hero" ref={heroRef}>
-        <div className="about-hero-bg">
-          <div className="about-hero-orb orb-1" />
-          <div className="about-hero-orb orb-2" />
-          <div className="about-hero-grid" />
-        </div>
-        <div className="container about-hero-content">
-          <span className="about-eyebrow">Our Story</span>
-          <h1 className="about-hero-title">
-            Crafted with <span className="about-hero-accent">passion</span>,<br />
-            worn with pride.
-          </h1>
-          <p className="about-hero-desc">
-            Alaa Accessories was born from a love for style and a belief that
-            great accessories shouldn't cost a fortune — they should be
-            accessible, premium, and timeless.
-          </p>
-          <div className="about-hero-cta">
-            <Link to="/shop" className="btn btn-primary about-btn-primary">
-              Shop Collection
-            </Link>
-            <a href="#story" className="btn btn-outline about-btn-outline">
-              Learn More ↓
-            </a>
-          </div>
-        </div>
-        <div className="about-hero-scroll-hint">
-          <span />
-        </div>
-      </section>
 
-      {/* BRAND STORY */}
-      <section id="story" className="about-story" ref={storyRef}>
-        <div className={`container about-story-inner ${storyInView ? 'in-view' : ''}`}>
-          <div className="about-story-visual">
-            <div className="about-logo-frame">
-              <img src="/logo.png" alt="Alaa Accessories" className="about-logo-large" />
-              <div className="about-logo-ring ring-1" />
-              <div className="about-logo-ring ring-2" />
+      {/* ── HERO ── */}
+      <section className="about-hero">
+        <div className="container about-hero-inner">
+          <div className="about-hero-text animate-fade-in-up">
+            <p className="about-tag">Tech Accessories Store</p>
+            <h1 className="about-h1">
+              Gear that keeps<br />
+              up with you.
+            </h1>
+            <p className="about-lead">
+              Alaa Accessories is a curated tech accessories store built for
+              people who take their setup seriously. From desk essentials to
+              mobile gear — we carry it all.
+            </p>
+            <div className="about-hero-actions">
+              <Link to="/shop" className="btn btn-primary">Shop Now</Link>
+              <a href="#our-story" className="btn btn-outline">Our Story</a>
             </div>
           </div>
-          <div className="about-story-text">
-            <span className="about-eyebrow">Who We Are</span>
-            <h2>More than a store —<br />a lifestyle.</h2>
-            <p>
-              Founded with a clear vision: to bring premium accessories to
-              everyone. At Alaa Accessories, we believe that the details make
-              the difference. From the clasp of a bracelet to the finish of a
-              watch strap, we obsess over quality so you don't have to.
-            </p>
-            <p>
-              Every product in our collection is thoughtfully sourced, rigorously
-              tested, and beautifully presented — because you deserve nothing
-              less than extraordinary.
-            </p>
-            <Link to="/shop" className="about-story-link">
-              Explore our collection →
-            </Link>
+          <div className="about-hero-visual animate-fade-in-up delay-1">
+            <div className="about-logo-box">
+              <img src="/logo.png" alt="Alaa Accessories logo" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* STATS */}
-      <section className="about-stats" ref={statsRef}>
-        <div className={`container about-stats-grid ${statsInView ? 'in-view' : ''}`}>
+      {/* ── DIVIDER ── */}
+      <div className="about-divider">
+        <div className="container">
+          <div className="about-marquee-wrap">
+            {['Tech Accessories', '·', 'Premium Quality', '·', 'Fast Shipping', '·', 'Tested Gear', '·', 'Tech Accessories', '·', 'Premium Quality', '·', 'Fast Shipping', '·', 'Tested Gear'].map((t, i) => (
+              <span key={i} className={t === '·' ? 'about-marquee-dot' : ''}>{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── STATS ── */}
+      <section className="about-stats-section">
+        <div
+          className={`container about-stats-grid ${statsInView ? 'in-view' : ''}`}
+          ref={statsRef}
+        >
           {stats.map((s, i) => (
-            <div className="about-stat-card" key={i} style={{ animationDelay: `${i * 0.1}s` }}>
-              <div className="about-stat-value">
-                <AnimatedCounter target={s.value} />
+            <div className="about-stat" key={i} style={{ transitionDelay: `${i * 80}ms` }}>
+              <div className="about-stat-num">
+                <Counter target={s.value} suffix={s.suffix} />
               </div>
               <div className="about-stat-label">{s.label}</div>
             </div>
@@ -162,39 +153,97 @@ export default function About() {
         </div>
       </section>
 
-      {/* VALUES */}
-      <section className="about-values" ref={valuesRef}>
-        <div className="container">
-          <div className={`about-values-header ${valuesInView ? 'in-view' : ''}`}>
-            <span className="about-eyebrow">What Drives Us</span>
-            <h2>Our Core Values</h2>
-            <p>The principles that guide every decision we make.</p>
+      {/* ── STORY ── */}
+      <section id="our-story" className="about-story-section">
+        <div
+          className={`container about-story-grid ${storyInView ? 'in-view' : ''}`}
+          ref={storyRef}
+        >
+          <div className="about-story-left">
+            <p className="about-section-tag">Who We Are</p>
+            <h2>More than a store.<br />A tech community.</h2>
           </div>
-          <div className={`about-values-grid ${valuesInView ? 'in-view' : ''}`}>
+          <div className="about-story-right">
+            <p>
+              We started Alaa Accessories because we were tired of compromising.
+              Cheap cables that fry. Cases that crack. Stands that wobble. We
+              built a store around one rule: <strong>only sell what we'd use ourselves.</strong>
+            </p>
+            <p>
+              Every product goes through our own quality checklist before it
+              ever reaches a customer. We source from trusted manufacturers, test
+              compatibility with major devices, and back everything with our
+              satisfaction guarantee.
+            </p>
+            <Link to="/shop" className="about-story-cta">
+              Browse the collection →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CATEGORIES WE COVER ── */}
+      <section className="about-cats-section" style={{ background: '#fafafa' }}>
+        <div className="container">
+          <div className={`about-cats-header ${catsInView ? 'in-view' : ''}`} ref={catsRef}>
+            <p className="about-section-tag">What We Carry</p>
+            <h2>Categories</h2>
+          </div>
+          <div className={`about-cats-grid ${catsInView ? 'in-view' : ''}`}>
+            {categories.map((c, i) => (
+              <Link
+                to="/shop"
+                className="about-cat-card"
+                key={i}
+                style={{ transitionDelay: `${i * 60}ms` }}
+              >
+                <span className="about-cat-icon">{c.icon}</span>
+                <span className="about-cat-label">{c.label}</span>
+                <span className="about-cat-arrow">→</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── VALUES ── */}
+      <section className="about-values-section">
+        <div className="container">
+          <div className={`about-values-header ${valuesInView ? 'in-view' : ''}`} ref={valuesRef}>
+            <p className="about-section-tag">Our Standards</p>
+            <h2>Why customers choose us</h2>
+          </div>
+          <div className={`about-values-list ${valuesInView ? 'in-view' : ''}`}>
             {values.map((v, i) => (
-              <div className="about-value-card" key={i} style={{ animationDelay: `${i * 0.12}s` }}>
-                <div className="about-value-icon">{v.icon}</div>
-                <h3>{v.title}</h3>
-                <p>{v.description}</p>
+              <div
+                className="about-value-row"
+                key={i}
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <span className="about-value-num">{v.num}</span>
+                <div className="about-value-body">
+                  <h3>{v.title}</h3>
+                  <p>{v.description}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA BANNER */}
-      <section className="about-cta">
-        <div className="about-cta-bg">
-          <div className="about-cta-orb" />
-        </div>
-        <div className="container about-cta-content">
-          <h2>Ready to elevate your style?</h2>
-          <p>Discover our full collection of premium accessories.</p>
-          <Link to="/shop" className="btn about-cta-btn">
-            Shop Now →
+      {/* ── CTA ── */}
+      <section className="about-cta-section">
+        <div className="container about-cta-inner">
+          <div>
+            <h2>Ready to upgrade your setup?</h2>
+            <p>Shop our full range of tech accessories — delivered fast.</p>
+          </div>
+          <Link to="/shop" className="btn btn-primary about-cta-btn">
+            Shop Collection →
           </Link>
         </div>
       </section>
+
     </div>
   );
 }
