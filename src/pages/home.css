@@ -3,7 +3,7 @@
 .hero-section {
   padding: var(--spacing-3xl) 0;
   border-bottom: 1px solid var(--color-border);
-  background-color: #fafafa;
+  background-color: #111111;
 }
 
 .hero-container {
@@ -126,7 +126,7 @@
 /* Category Card */
 .category-card {
   height: 250px;
-  background-color: #fafafa;
+  background-color: #1a1a1a;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   display: flex;
@@ -135,13 +135,13 @@
   justify-content: center;
   padding: var(--spacing-lg);
   text-align: center;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
 }
 
 .category-card:hover {
   transform: scale(1.02);
   box-shadow: var(--shadow-lg);
-  border-color: transparent;
+  border-color: var(--color-primary);
 }
 
 .category-card h3 {
@@ -171,7 +171,7 @@
 .product-image-container {
   width: 100%;
   aspect-ratio: 1/1;
-  background-color: #fafafa;
+  background-color: #1a1a1a;
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--color-border);

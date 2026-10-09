@@ -18,7 +18,7 @@
 .about-hero {
   padding: var(--spacing-3xl) 0;
   border-bottom: 1px solid var(--color-border);
-  background-color: #fafafa;
+  background-color: #111111;
 }
 
 .about-hero-container {
@@ -97,7 +97,7 @@
 }
 
 .about-stat {
-  background: #fff;
+  background: #0d0d0d;
   padding: var(--spacing-xl);
   display: flex;
   flex-direction: column;
@@ -161,18 +161,19 @@
 }
 
 .about-value-card {
-  background: #fff;
+  background: #1a1a1a;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--spacing-xl);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
 }
 
 .about-value-card:hover {
   transform: scale(1.02);
   box-shadow: var(--shadow-lg);
-  border-color: transparent;
+  border-color: var(--color-primary);
 }
 
 .about-value-card h3 {
@@ -189,7 +190,7 @@
 /* ══ CTA ══ */
 .about-cta {
   padding: var(--spacing-3xl) 0;
-  background: #fff;
+  background: #111111;
 }
 
 .about-cta-inner {
