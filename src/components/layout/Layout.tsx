@@ -14,7 +14,7 @@ export default function Layout() {
         <div className="container">
           <div className="footer-grid">
             <div className="footer-col">
-              <img src="/logo.png" alt="Alaa Accessories" style={{ height: '60px', marginBottom: '0.75rem', filter: 'invert(1) brightness(2)' }} />
+              <img src="/logo.png" alt="Alaa Accessories" style={{ height: '60px', marginBottom: '0.75rem' }} />
               <p>Premium everyday accessories delivered to your door. Quality guaranteed.</p>
             </div>
             <div className="footer-col">
