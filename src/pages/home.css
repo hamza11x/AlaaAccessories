@@ -1,0 +1,217 @@
+/* Home Page Styles */
+
+.hero-section {
+  padding: var(--spacing-3xl) 0;
+  border-bottom: 1px solid var(--color-border);
+  background-color: #fafafa;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .hero-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.hero-content {
+  flex: 1;
+  max-width: 500px;
+}
+
+.hero-title {
+  margin-bottom: var(--spacing-md);
+  letter-spacing: -0.02em;
+}
+
+.hero-subtitle {
+  margin-bottom: var(--spacing-xl);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.hero-image-wrapper {
+  flex: 1;
+  width: 100%;
+  aspect-ratio: 4/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  border-radius: var(--radius-lg);
+}
+
+/* Featured Sections */
+.featured-section {
+  padding: var(--spacing-2xl) 0;
+}
+
+@media (min-width: 768px) {
+  .featured-section {
+    padding: var(--spacing-3xl) 0;
+  }
+}
+
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-xl);
+}
+
+.link-arrow {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: opacity 0.2s ease;
+}
+
+.link-arrow:hover {
+  opacity: 0.7;
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.category-grid {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.product-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl) var(--spacing-sm);
+}
+
+@media (min-width: 480px) {
+  .product-grid {
+    gap: var(--spacing-xl) var(--spacing-md);
+  }
+}
+
+@media (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Category Card */
+.category-card {
+  height: 250px;
+  background-color: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  text-align: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.category-card:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.category-card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Product Card */
+.product-card-real {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card-real:hover {
+  transform: scale(1.02);
+}
+
+.product-card-real:hover .product-image-container {
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.product-image-container {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: #fafafa;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--spacing-xs) 4px 0;
+}
+
+.product-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-price {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
