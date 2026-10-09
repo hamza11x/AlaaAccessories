@@ -64,7 +64,7 @@ export default function Checkout() {
     }
 
     // 3. Construct WhatsApp Message
-    const whatsappNumber = "+212000000000"; // Replace with your actual WhatsApp number
+    const whatsappNumber = "+212688526876"; // Updated actual WhatsApp number
 
     const productDetails = cart.map(item => (
 `*Product:* ${item.name}
@@ -110,7 +110,7 @@ Please confirm my order. Thank you!`;
       <h1 style={{ marginBottom: 'var(--spacing-xl)' }}>Checkout (Cash on Delivery)</h1>
       
       {message && (
-        <div style={{ padding: '1rem', backgroundColor: '#eff6ff', color: '#1e40af', marginBottom: '1rem', borderRadius: '4px' }}>
+        <div style={{ padding: '1rem', backgroundColor: 'var(--color-primary-light)', color: 'var(--color-text)', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-primary)' }}>
           {message}
         </div>
       )}
@@ -137,7 +137,7 @@ Please confirm my order. Thank you!`;
           <input type="text" className="form-input" required value={city} onChange={e => setCity(e.target.value)} />
         </div>
         
-        <div style={{ padding: 'var(--spacing-md)', backgroundColor: '#fafafa', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', marginTop: 'var(--spacing-md)' }}>
+        <div style={{ padding: 'var(--spacing-md)', backgroundColor: 'var(--color-bg-card)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', marginTop: 'var(--spacing-md)' }}>
           <h3 style={{ marginBottom: '0.5rem' }}>Total to pay on delivery: {cartTotal.toFixed(2)} MAD</h3>
           <p style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>By placing this order, you agree to pay the total amount in cash upon delivery.</p>
         </div>
